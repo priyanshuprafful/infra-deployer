@@ -1,2 +1,2 @@
 # infra-deployer
-pythin-flask-webapp
+python-flask-webapp
