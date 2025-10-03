@@ -28,14 +28,8 @@ pipeline {
 
         stage('Deploy Container') {
             steps {
-                sh '''
-            docker rm -f infra-deployer || true
-            if [ "$(docker ps -aq --filter 'ancestor=${IMAGE}:latest')" ]; then
-                docker stop $(docker ps -aq --filter 'ancestor=${IMAGE}:latest')
-                docker rm $(docker ps -aq --filter 'ancestor=${IMAGE}:latest')
-            fi
-            docker run -d --name infra-deployer -p ${APP_PORT}:${APP_PORT} ${IMAGE}:latest
-        '''
+                sh 'docker rm -f ${CONTAINER_NAME} || true'
+                sh 'docker run -d --name ${CONTAINER_NAME} -p ${APP_PORT}:${APP_PORT} ${IMAGE}:latest'
             }
         }
     }
